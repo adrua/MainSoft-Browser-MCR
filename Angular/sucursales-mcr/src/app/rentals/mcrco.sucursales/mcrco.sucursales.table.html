@@ -1,0 +1,159 @@
+<div class="mat-table-scroll" id="style_menu_desplegable">
+    <mat-table [dataSource]="rows" class="mat-elevation-z8" matSort >
+        <!-- Fecha Inicio: Column -->
+        <ng-container matColumnDef="mcrcoSucursalesFechaInicio">
+            <mat-header-cell *matHeaderCellDef disableClear>
+                <button mat-icon-button [matMenuTriggerFor]="menuSearch" (click)="onSelectColumn($event, 'McrcoSucursalesFechaInicio', 'Date', 'McrcoSucursalesFechaInicio', ':')">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <span mat-sort-header>{{ "mcrcoSucursales.McrcoSucursalesFechaInicio" | translate }}:</span>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.McrcoSucursalesFechaInicio | date}} </mat-cell>
+        </ng-container>
+
+        <!-- Descripcion: Column -->
+        <ng-container matColumnDef="mcrcoSucursalesDescripcion">
+            <mat-header-cell *matHeaderCellDef disableClear>
+                <button mat-icon-button [matMenuTriggerFor]="menuSearch" (click)="onSelectColumn($event, 'McrcoSucursalesDescripcion', 'Varchar', 'McrcoSucursalesDescripcion', ':')">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <span mat-sort-header>{{ "mcrcoSucursales.McrcoSucursalesDescripcion" | translate }}:</span>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.McrcoSucursalesDescripcion}}</mat-cell>
+        </ng-container>
+
+        <!-- Direccion: Column -->
+        <ng-container matColumnDef="mcrcoSucursalesDireccion">
+            <mat-header-cell *matHeaderCellDef disableClear>
+                <button mat-icon-button [matMenuTriggerFor]="menuSearch" (click)="onSelectColumn($event, 'McrcoSucursalesDireccion', 'Varchar', 'McrcoSucursalesDireccion', ':')">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <span mat-sort-header>{{ "mcrcoSucursales.McrcoSucursalesDireccion" | translate }}:</span>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.McrcoSucursalesDireccion}}</mat-cell>
+        </ng-container>
+
+        <!-- Ciudad: Column -->
+        <ng-container matColumnDef="cntCiudades/ciudadNombreCiudad">
+            <mat-header-cell *matHeaderCellDef disableClear>
+                <button mat-icon-button [matMenuTriggerFor]="menuSearch" (click)="onSelectColumn($event, 'CiudadNombreCiudad', 'Varchar', 'CntCiudades/CiudadNombreCiudad', ':')">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <span mat-sort-header>{{ "mcrcoSucursales.CiudadNombreCiudad" | translate }}:</span>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.CntCiudades?.CiudadNombreCiudad}} </mat-cell>
+        </ng-container>
+
+        <!-- Longitud: Column -->
+        <ng-container matColumnDef="mcrcoSucursalesLongitud">
+            <mat-header-cell *matHeaderCellDef disableClear>
+                <button mat-icon-button [matMenuTriggerFor]="menuSearch" (click)="onSelectColumn($event, 'McrcoSucursalesLongitud', 'Number', 'McrcoSucursalesLongitud', ':')">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <span mat-sort-header>{{ "mcrcoSucursales.McrcoSucursalesLongitud" | translate }}:</span>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.McrcoSucursalesLongitud}}</mat-cell>
+        </ng-container>
+
+        <!-- Latitud: Column -->
+        <ng-container matColumnDef="mcrcoSucursalesLatitud">
+            <mat-header-cell *matHeaderCellDef disableClear>
+                <button mat-icon-button [matMenuTriggerFor]="menuSearch" (click)="onSelectColumn($event, 'McrcoSucursalesLatitud', 'Number', 'McrcoSucursalesLatitud', ':')">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <span mat-sort-header>{{ "mcrcoSucursales.McrcoSucursalesLatitud" | translate }}:</span>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.McrcoSucursalesLatitud}}</mat-cell>
+        </ng-container>
+
+        <!-- Estado: Column -->
+        <ng-container matColumnDef="mcrcoSucursalesEstado">
+            <mat-header-cell *matHeaderCellDef disableClear>
+                <button mat-icon-button [matMenuTriggerFor]="menuSearch" (click)="onSelectColumn($event, 'McrcoSucursalesEstado', 'Number', 'McrcoSucursalesEstado', ':')">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <span mat-sort-header>{{ "mcrcoSucursales.McrcoSucursalesEstado" | translate }}:</span>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ "mcrcoSucursales.enumMcrcoSucursalesEstado." + row.McrcoSucursalesEstado | translate }} </mat-cell>
+        </ng-container>
+
+
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+        <mat-row *matRowDef="let row; let even = even; let index = index; columns: displayedColumns; " 
+            [ngClass]="{'alternate-row-color': even, 'mat-row-select': row === selectedRow}"
+            (click)="onSelect($event, row, index);" 
+            (dblclick)="onSelectAndEdit($event, row, index);"></mat-row>
+        <mat-menu #menuSearch>
+            <div mat-menu-item mat-filter-item [disableRipple]="true" class="menu-title">
+                {{  "mcrcoSucursales." + selectedColumn.name | translate }}
+            </div>
+            <div mat-menu-item mat-filter-item [disableRipple]="true">
+                <mat-form-field (click)="$event.stopPropagation()">
+                <mat-select [panelClass]="'mat-elevation-z10'" placeholder="{{ 'CONDITIONS_LIST.conditions' | translate }}" [(value)]="searchCondition[selectedColumn.name]">
+                    <mat-option *ngFor="let condition of selectedColumn.filter" [value]="condition">{{condition.label}}</mat-option>
+                </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div mat-menu-item mat-filter-item [disableRipple]="true" [ngSwitch]="selectedColumn.type">
+                <mat-form-field (click)="$event.stopPropagation()" *ngSwitchCase="'Date'">
+                    <!--Date-->
+                    <input matInput 
+                        [matDatepicker]="menuSearchDate" 
+                        displayFormat="MMM DD/YYYY"
+                        placeholder="{{ 'CONDITIONS_LIST.value' | translate }}"
+                        [(ngModel)]="searchValue[selectedColumn.name]">
+                    <mat-datepicker-toggle matSuffix [for]="menuSearchDate"></mat-datepicker-toggle>
+                    <mat-datepicker #menuSearchDate></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field (click)="$event.stopPropagation()" *ngSwitchCase="'Boolean'">
+                    <!--Boolean-->
+                    <mat-select matInput type="text" [(value)]="searchValue[selectedColumn.name]"  placeholder="{{ 'CONDITIONS_LIST.value' | translate }}" >
+                        <mat-option [value]="true">{{ 'Main._activo' | translate }}</mat-option>
+                        <mat-option [value]="false">{{ 'Main._inactivo' | translate }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field (click)="$event.stopPropagation()" *ngSwitchDefault>
+                    <!--Number, Varchar-->
+                    <input matInput  *ngSwitchDefault
+                        placeholder="{{ 'CONDITIONS_LIST.value' | translate }}" 
+                        [(ngModel)]="searchValue[selectedColumn.name]">
+                </mat-form-field>
+            </div>
+
+            <div mat-menu-item mat-filter-item [disableRipple]="true">
+                <button mat-raised-button (click)="onClearColumn($event)">{{ 'CONDITIONS_LIST.clear' | translate }}</button>
+                <button mat-raised-button color="primary" (click)="onApplyFilter($event)">{{ 'CONDITIONS_LIST.search' | translate }}</button>
+            </div>
+        </mat-menu>
+    </mat-table>
+</div>    
+<mat-toolbar class="mat-toolbar-opc">
+    <mat-toolbar-row>
+        <mat-icon (click)="onAdd()" title="{{ 'Main._addRow' | translate }}">add</mat-icon>
+        <mat-icon (click)="onEdit()" title="{{ 'Main._editRow' | translate }}">edit</mat-icon>
+        <mat-icon (click)="onRefresh()" title="{{ 'Main._refreshTable' | translate }}">refresh</mat-icon>
+        <mat-icon (click)="onExportExcel($event)" title="{{ 'Main._exportCSV' | translate }}">save_alt</mat-icon>
+        <span class="example-spacer"></span>
+        <mat-paginator #paginator
+                class="paginator" 
+                [length]="resultsLength" 
+                [pageSize]="_pageSize" 
+                [pageSizeOptions]="[5, 10, 25, 100]">
+        </mat-paginator>
+        <div class="mat-paginator" *ngIf="paginator.length > paginator.pageSize">
+            <mat-label>{{ 'PAGINATOR.pageLabel' | translate }} </mat-label>
+            <mat-slider
+                min="0"
+                [max]="(paginator.length / paginator.pageSize).toFixed()"
+                [displayWith]="formatPageLabel"
+                step="1"
+                [(ngModel)]="pageIndex"
+                thumbLabel></mat-slider>
+        </div>
+        <div *ngIf="isLoadingResults" class="ml-2 row">
+            <mat-spinner [diameter]="30"></mat-spinner>
+            <span class="ml-2" style="font-size: 12px">Loading...</span>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>

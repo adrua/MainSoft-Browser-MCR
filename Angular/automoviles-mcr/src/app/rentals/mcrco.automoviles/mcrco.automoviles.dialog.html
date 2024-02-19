@@ -1,0 +1,137 @@
+<div id="style_menu_desplegable" style="max-height: calc(120vh - 320px); padding: 0px; overflow: auto; margin:-24px">
+    <div style="padding: 0px; margin: 24px;">
+        <mat-card>
+            <mat-card-header>
+                <div class="d-flex align-items-center m-card">
+                    <mat-card-title class="mb-0">{{ 'mcrcoAutomoviles._titulo' | translate }}</mat-card-title>
+                    <span [ngStyle]="{'margin': 'auto'}" ></span>
+                    <mat-icon *ngIf="mcrcoAutomovilesForm.invalid" [matTooltip]="getErrorMessages()">error_outline</mat-icon>
+                    <mat-icon mat-dialog-close>close</mat-icon>
+                </div>
+            </mat-card-header>
+            <mat-card-content>
+                <form [formGroup]="mcrcoAutomovilesForm" (ngSubmit)="onSubmit(mcrcoAutomovilesForm.value)" autocomplete="off">
+                    <div class="dialog-content">
+                        <div class="row">
+                            <div class="col-sm-6 col-12">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{ 'mcrcoAutomoviles.McrcoAutomovilesFechaIngreso' | translate }}:</mat-label>
+                                    <input matInput [matDatepicker]="datepickerMcrcoAutomovilesFechaIngreso" displayFormat="MMM DD/YYYY"
+                                            formControlName="McrcoAutomovilesFechaIngreso" />
+                                    <mat-datepicker-toggle matSuffix [for]="datepickerMcrcoAutomovilesFechaIngreso"></mat-datepicker-toggle>
+                                    <mat-datepicker #datepickerMcrcoAutomovilesFechaIngreso></mat-datepicker>
+                                </mat-form-field>
+                                <mat-error *ngIf="mcrcoAutomovilesForm.controls.McrcoAutomovilesFechaIngreso.invalid && mcrcoAutomovilesForm.controls.McrcoAutomovilesFechaIngreso.touched">{{ "mcrcoAutomoviles.McrcoAutomovilesFechaIngresoError" | translate }}</mat-error>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-12">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{ 'mcrcoAutomoviles.McrcoAutomovilesMarca' | translate }}:</mat-label>
+                                    <input matInput type="text"
+                                            formControlName="McrcoAutomovilesMarca" />
+                                </mat-form-field>
+                                <mat-error *ngIf="mcrcoAutomovilesForm.controls.McrcoAutomovilesMarca.invalid && mcrcoAutomovilesForm.controls.McrcoAutomovilesMarca.touched">{{ "mcrcoAutomoviles.McrcoAutomovilesMarcaError" | translate }}</mat-error>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 col-12">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{ 'mcrcoAutomoviles.McrcoAutomovilesModelo' | translate }}:</mat-label>
+                                    <input matInput type="text"
+                                            formControlName="McrcoAutomovilesModelo" />
+                                </mat-form-field>
+                                <mat-error *ngIf="mcrcoAutomovilesForm.controls.McrcoAutomovilesModelo.invalid && mcrcoAutomovilesForm.controls.McrcoAutomovilesModelo.touched">{{ "mcrcoAutomoviles.McrcoAutomovilesModeloError" | translate }}</mat-error>
+                            </div>
+                            <div class="col-sm-4 col-12">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{ 'mcrcoAutomoviles.McrcoAutomovilesAno' | translate }}:</mat-label>
+                                    <input matInput type="number"
+                                            formControlName="McrcoAutomovilesAno" />
+                                </mat-form-field>
+                                <mat-error *ngIf="mcrcoAutomovilesForm.controls.McrcoAutomovilesAno.invalid && mcrcoAutomovilesForm.controls.McrcoAutomovilesAno.touched">{{ "mcrcoAutomoviles.McrcoAutomovilesAnoError" | translate }}</mat-error>
+                            </div>
+                            <div class="col-sm-4 col-12">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{ 'mcrcoAutomoviles.McrcoAutomovilesClase' | translate }}:</mat-label>
+                                    <input matInput type="text"
+                                            formControlName="McrcoAutomovilesClase" />
+                                </mat-form-field>
+                                <mat-error *ngIf="mcrcoAutomovilesForm.controls.McrcoAutomovilesClase.invalid && mcrcoAutomovilesForm.controls.McrcoAutomovilesClase.touched">{{ "mcrcoAutomoviles.McrcoAutomovilesClaseError" | translate }}</mat-error>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 col-12">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{ 'mcrcoAutomoviles.McrcoSucursalesDescripcionReclamar' | translate }}:({{mcrcoAutomovilesForm.controls.McrcoSucursalesIdMcrcoSucursalesDescripcionReclamar?.value}}/{{mcrcoAutomovilesForm.controls.McrcoSucursalesIdMcrcoSucursalesDescripcionEntrega?.value}})</mat-label>
+                                    <input matInput
+                                            autocomplete="off"
+                                            [matAutocomplete]="mcrcoSucursalesDescripcionReclamar"
+                                            [formControl]="mcrcoSucursalesDescripcionReclamarCtrl"
+                                            (keydown)="onKeydownMcrcoSucursalesDescripcionReclamar($event);" />
+                                </mat-form-field>
+                                <mat-autocomplete #mcrcoSucursalesDescripcionReclamar="matAutocomplete"
+                                            [displayWith]="displayFnMcrcoSucursalesDescripcionReclamar">
+                                    <mat-option *ngFor="let opt of filteredMcrcoSucursalesDescripcionReclamar | async" 
+                                                [value]="opt">
+                                        {{ opt.McrcoSucursalesDescripcion }}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-error *ngIf="mcrcoSucursalesDescripcionReclamarCtrl.invalid && mcrcoSucursalesDescripcionReclamarCtrl.touched">{{ "McrcoAutomoviles.McrcoSucursalesDescripcionReclamarError" | translate }}</mat-error>
+                            </div>
+                            <div class="col-sm-6 col-12">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{ 'mcrcoAutomoviles.McrcoSucursalesDescripcionEntrega' | translate }}:({{mcrcoAutomovilesForm.controls.McrcoSucursalesIdMcrcoSucursalesDescripcionReclamar?.value}}/{{mcrcoAutomovilesForm.controls.McrcoSucursalesIdMcrcoSucursalesDescripcionEntrega?.value}})</mat-label>
+                                    <input matInput
+                                            autocomplete="off"
+                                            [matAutocomplete]="mcrcoSucursalesDescripcionEntrega"
+                                            [formControl]="mcrcoSucursalesDescripcionEntregaCtrl"
+                                            (keydown)="onKeydownMcrcoSucursalesDescripcionEntrega($event);" />
+                                </mat-form-field>
+                                <mat-autocomplete #mcrcoSucursalesDescripcionEntrega="matAutocomplete"
+                                            [displayWith]="displayFnMcrcoSucursalesDescripcionEntrega">
+                                    <mat-option *ngFor="let opt of filteredMcrcoSucursalesDescripcionEntrega | async" 
+                                                [value]="opt">
+                                        {{ opt.McrcoSucursalesDescripcion }}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-error *ngIf="mcrcoSucursalesDescripcionEntregaCtrl.invalid && mcrcoSucursalesDescripcionEntregaCtrl.touched">{{ "McrcoAutomoviles.McrcoSucursalesDescripcionEntregaError" | translate }}</mat-error>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-12">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>{{ 'mcrcoAutomoviles.McrcoAutomovilesEstado' | translate }}:</mat-label>
+                                    <mat-select formControlName="McrcoAutomovilesEstado">
+                                        <mat-option value="Disponible">{{ 'mcrcoAutomoviles.enumMcrcoAutomovilesEstado.Disponible' | translate }}</mat-option>
+                                        <mat-option value="Mantenimiento">{{ 'mcrcoAutomoviles.enumMcrcoAutomovilesEstado.Mantenimiento' | translate }}</mat-option>
+                                        <mat-option value="Fuera_de_servicio">{{ 'mcrcoAutomoviles.enumMcrcoAutomovilesEstado.Fuera_de_servicio' | translate }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-error *ngIf="mcrcoAutomovilesForm.controls.McrcoAutomovilesEstado.invalid && mcrcoAutomovilesForm.controls.McrcoAutomovilesEstado.touched">{{ "mcrcoAutomoviles.McrcoAutomovilesEstadoError" | translate }}</mat-error>
+                            </div>
+                    </div>
+                    </div>
+                </form>
+            </mat-card-content>
+            <mat-card-actions>
+                <mat-spinner *ngIf="_proc" [diameter]="30" class="mb-3 mx-auto"></mat-spinner>
+                <button mat-button
+                    (click)="onSubmit(mcrcoAutomovilesForm.value);"
+                    [disabled]="!mcrcoAutomovilesForm.valid">
+                    {{ "mcrcoAutomoviles._guardar" | translate  }}
+                </button>
+                <button mat-button *ngIf="originalMcrcoAutomoviles._estado === 'O'"
+                    (click)="onDelete(mcrcoAutomovilesForm.value);"
+                    [disabled]="!mcrcoAutomovilesForm.valid">
+                    {{ "mcrcoAutomoviles._eliminar" | translate  }}
+                </button>
+                <button
+                    mat-button
+                    mat-dialog-close>
+                    {{ "mcrcoAutomoviles._cancelar" | translate  }}
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
